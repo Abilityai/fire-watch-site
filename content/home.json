@@ -11,7 +11,27 @@
       { "level": "Orange", "meaning": "Prepare" },
       { "level": "Red", "meaning": "Act now" }
     ],
-    "verdictNote": "Every briefing opens with one of these four words and the single reason behind it. Green is a real answer too — it means you can stop refreshing the news."
+    "verdictNote": "Every briefing opens with one of these four words and the single reason behind it. Green is a real answer too — it means you can stop refreshing the news.",
+    "profile": {
+      "image": {
+        "src": "/images/risk-profile-map.png",
+        "width": 700,
+        "height": 700,
+        "alt": "Threat map for a home near Lisbon: blue property pin with 20, 40 and 60 km distance rings, satellite hotspots and incident markers, produced by the Fire Watch engine"
+      },
+      "pin": { "x": 44.3, "y": 45.4 },
+      "stamp": "Risk profile · 29 Jul 2026 · 11:16 UTC",
+      "location": "Home — near Lisbon",
+      "level": "Orange",
+      "levelLabel": "Orange · Prepare",
+      "composite": "3.62 / 5",
+      "facts": [
+        "Driver: forest incident at Torres Vedras — 43.8 km NNE, upwind (alignment 0.70)",
+        "Wind NNW 10.6 km/h · 4 satellite hotspots within 60 km",
+        "Escalates to Red if that incident goes to active burning"
+      ],
+      "caption": "Real engine output — the threat map behind the example briefing: property pin, 20/40/60 km rings, hotspots, incidents, wind."
+    }
   },
   "crisis": {
     "eyebrow": "Right now · updated 29 July 2026",
