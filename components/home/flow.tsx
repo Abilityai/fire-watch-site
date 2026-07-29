@@ -10,7 +10,7 @@ export function Flow() {
     <Section id="request" className="bg-card-warm/50">
       <Container>
         <p className="eyebrow">
-          <b>04</b> {flow.eyebrow}
+          <b>05</b> {flow.eyebrow}
         </p>
         <h2 className="mt-4 max-w-3xl text-balance text-3xl font-bold tracking-tight md:text-5xl">
           {flow.title}

@@ -13,6 +13,36 @@
     ],
     "verdictNote": "Every briefing leads with one of four verdicts — and the single driver behind it. Traffic lights, not decimal probabilities."
   },
+  "crisis": {
+    "eyebrow": "Right now · updated 29 July 2026",
+    "title": "Fires are burning across Spain and France. Portugal shares the fuel and the weather.",
+    "lede": "This service exists because of weeks like this one. In the 24 hours before this page was updated, the satellites Fire Watch reads logged 264 confident thermal detections across Iberia and southern France — an active front in Spain's Castellón province, fire clusters in the Gironde forests south of Bordeaux, and detections in northern Portugal's Trás-os-Montes.",
+    "images": [
+      {
+        "src": "/images/crisis-region.jpg",
+        "width": 1520,
+        "height": 880,
+        "alt": "Satellite view of the Iberian Peninsula and southern France with active fire detections marked in red and visible smoke plumes",
+        "caption": "Iberia and southern France — VIIRS true color with active fire detections in red. 28 July 2026."
+      },
+      {
+        "src": "/images/crisis-gironde.jpg",
+        "width": 1400,
+        "height": 870,
+        "alt": "Satellite close-up of the Gironde coast in France showing fire fronts and a smoke plume streaming over the Atlantic",
+        "caption": "Gironde, France — fire fronts in the Landes forest, smoke streaming over the Atlantic."
+      },
+      {
+        "src": "/images/crisis-castellon.jpg",
+        "width": 1400,
+        "height": 800,
+        "alt": "Satellite close-up of Castellón province in Spain showing an active fire front with smoke drifting over the Mediterranean",
+        "caption": "Castellón, Spain — an active front pushing smoke out over the Mediterranean."
+      }
+    ],
+    "attribution": "Imagery: NASA Worldview, VIIRS (Suomi NPP) true color + thermal anomalies — public domain. Detection count: NASA FIRMS, 24 h to 29 July 2026, confidence ≥ nominal.",
+    "kicker": "The question is never “is Iberia burning” — in summer, it usually is somewhere. The question is whether any of it matters for your address, and that is exactly what a briefing answers."
+  },
   "report": {
     "eyebrow": "What you get",
     "title": "One report. Verdict first.",

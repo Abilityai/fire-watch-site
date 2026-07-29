@@ -9,7 +9,7 @@ export function Method() {
     <Section id="method">
       <Container>
         <p className="eyebrow">
-          <b>03</b> {method.eyebrow}
+          <b>04</b> {method.eyebrow}
         </p>
         <h2 className="mt-4 max-w-2xl text-balance text-3xl font-bold tracking-tight md:text-5xl">
           {method.title}

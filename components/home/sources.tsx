@@ -26,7 +26,7 @@ export function Sources() {
     <Section id="data" className="bg-card-warm/50">
       <Container>
         <p className="eyebrow">
-          <b>02</b> {data.eyebrow}
+          <b>03</b> {data.eyebrow}
         </p>
         <h2 className="mt-4 max-w-3xl text-balance text-3xl font-bold tracking-tight md:text-5xl">
           {data.title}

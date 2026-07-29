@@ -9,7 +9,7 @@ export function Report() {
     <Section id="report">
       <Container>
         <p className="eyebrow">
-          <b>01</b> {report.eyebrow}
+          <b>02</b> {report.eyebrow}
         </p>
         <h2 className="mt-4 max-w-2xl text-balance text-3xl font-bold tracking-tight md:text-5xl">
           {report.title}

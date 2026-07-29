@@ -4,6 +4,7 @@
   "description": "An autonomous fire analyst that reads satellites, official incident feeds, and fire weather — and tells you in one color whether your home is threatened, and what to do next.",
   "url": "https://fire-watch-site.vercel.app",
   "nav": [
+    { "label": "Now", "href": "#now" },
     { "label": "The report", "href": "#report" },
     { "label": "Data", "href": "#data" },
     { "label": "Method", "href": "#method" },
@@ -11,8 +12,8 @@
   ],
   "contact": {
     "telegram": {
-      "handle": "@FireWatchBriefings",
-      "url": "",
+      "handle": "@fire_watch_briefings_bot",
+      "url": "https://t.me/fire_watch_briefings_bot",
       "note": "Access is personal and approved by the operator before any report runs."
     }
   },
