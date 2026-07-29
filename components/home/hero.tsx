@@ -12,7 +12,7 @@ const levelColor: Record<string, string> = {
 export function Hero() {
   const { hero } = home;
   return (
-    <section className="border-b border-line py-20 md:py-28">
+    <section className="border-b border-line py-14 md:py-20">
       <Container>
         <p className="eyebrow anim-fade-up">
           <b>▲</b> {hero.eyebrow}

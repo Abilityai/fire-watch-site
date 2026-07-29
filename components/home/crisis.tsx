@@ -17,6 +17,10 @@ export function Crisis() {
         </h2>
         <p className="mt-5 max-w-2xl text-lg text-ink-muted">{crisis.lede}</p>
 
+        <p className="mt-6 max-w-2xl rounded-2xl border-l-4 border-lvl-red bg-card px-6 py-4 text-[0.98rem] font-medium">
+          {crisis.emergency}
+        </p>
+
         <figure className="mt-10">
           <div className="overflow-hidden rounded-2xl border border-line">
             <Image
@@ -58,7 +62,7 @@ export function Crisis() {
           {crisis.attribution}
         </p>
 
-        <p className="mt-8 max-w-2xl rounded-2xl border border-ember/30 bg-ember-soft px-6 py-5 text-[1.02rem] font-medium text-ember-deep">
+        <p className="mt-8 max-w-2xl text-[1.02rem] font-medium">
           {crisis.kicker}
         </p>
       </Container>
