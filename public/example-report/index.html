@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fire Watch — Evidence &amp; Readiness Briefing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#0B0B0E; --bg-1:#131318; --bg-2:#1A1A21;
+  --line:#26262C; --line-2:#34343C;
+  --ink:#FFFFFF; --ink-dim:#9DA2BC; --ink-mute:#6B6E80;
+  --accent:#B85050;
+  --accent-dim:#4A2A2A; --accent-soft:rgba(184,80,80,.10);
+  --ok:#5FE0A0; --risk:#FF8FAB; --warn:#F0C14B;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1200px;
+  --shadow:6px 6px 0 0 rgba(0,0,0,.5); --shadow-sm:4px 4px 0 0 rgba(0,0,0,.45);
+}
+html{scroll-behavior:smooth; font-size:106.25%}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+     line-height:1.62; -webkit-font-smoothing:antialiased}
+h1{font-size:clamp(2.4rem,5.4vw,4.1rem); line-height:1.03; font-weight:800;
+   letter-spacing:-.03em; text-wrap:balance; margin:0}
+h2{font-size:clamp(1.9rem,3.6vw,2.8rem); line-height:1.08; font-weight:800;
+   letter-spacing:-.025em; text-wrap:balance; margin:0}
+h3{font-size:1.25rem; font-weight:700; letter-spacing:-.01em}
+.lede{color:var(--ink-dim); font-size:clamp(1.15rem,1.6vw,1.4rem); line-height:1.55;
+      max-width:64ch; margin:22px 0 0}
+.eyebrow{font-family:var(--mono); font-size:14px; letter-spacing:.16em;
+         text-transform:uppercase; color:var(--ink-mute); margin:0 0 20px}
+.eyebrow b{color:var(--accent); font-weight:700}
+.k{color:var(--ink); font-weight:600}
+em.hl{font-style:normal; color:var(--accent); font-weight:600}
+*{box-sizing:border-box}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 30px; position:relative; z-index:1}
+#bar{position:fixed; top:0; left:0; height:3px; width:0; background:var(--accent);
+     z-index:50; transition:width .12s linear}
+nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(10px);
+    background:color-mix(in srgb, var(--bg) 76%, transparent); border-bottom:1px solid var(--line)}
+nav .wrap{display:flex; align-items:center; gap:18px; height:56px}
+.brand{font-family:var(--mono); font-size:13px; letter-spacing:.14em;
+       text-transform:uppercase; white-space:nowrap}
+.brand b{color:var(--accent); font-weight:700}
+.nlinks{display:flex; gap:2px; margin-left:auto; overflow-x:auto; scrollbar-width:none}
+.nlinks a{font-family:var(--mono); font-size:13px; color:var(--ink-mute);
+          text-decoration:none; padding:6px 9px; border-radius:6px;
+          transition:color .15s, background .15s; white-space:nowrap}
+.nlinks a:hover{color:var(--ink)}
+.nlinks a.active{color:var(--ink); background:var(--bg-2)}
+@media(max-width:900px){ .nlinks{display:none} }
+section{padding:110px 0; border-bottom:1px solid var(--line);
+        scroll-margin-top:66px; position:relative}
+footer{padding:48px 0; color:var(--ink-mute)}
+footer .wrap{display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+             justify-content:space-between}
+.fmono{font-family:var(--mono); font-size:13.5px; letter-spacing:.04em}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+.reveal{opacity:0; transform:translateY(18px);
+        transition:opacity .55s ease, transform .55s ease}
+.reveal.in{opacity:1; transform:none}
+.reveal.d1{transition-delay:.08s} .reveal.d2{transition-delay:.16s} .reveal.d3{transition-delay:.24s}
+
+/* S1 hero */
+#hero{min-height:90vh; display:flex; align-items:center; position:relative;
+      border-bottom:1px solid var(--line); overflow:hidden}
+#embers{position:absolute; inset:0; z-index:0}
+.scrim{position:absolute; inset:0; z-index:1;
+       background:radial-gradient(1100px 600px at 28% 42%, transparent 0%, rgba(11,11,14,.72) 68%, rgba(11,11,14,.94) 100%)}
+#hero .wrap{z-index:2; padding-top:90px; padding-bottom:90px}
+.stamp{font-family:var(--mono); font-size:14px; letter-spacing:.08em; color:var(--ink);
+       border-left:3px solid var(--accent); padding-left:12px; margin:0 0 22px}
+.stamp b{color:var(--accent); font-weight:700; letter-spacing:.12em}
+.tag{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono);
+     font-size:13.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--warn);
+     border:1px solid color-mix(in srgb, var(--warn) 45%, transparent);
+     background:color-mix(in srgb, var(--warn) 9%, transparent);
+     padding:8px 14px; border-radius:100px; margin-bottom:26px}
+.tag i{width:9px; height:9px; border-radius:50%; background:var(--warn); font-style:normal;
+       animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.heroflow{display:flex; flex-wrap:wrap; gap:10px; margin-top:34px}
+.chip{font-family:var(--mono); font-size:13px; letter-spacing:.06em; color:var(--ink-dim);
+      border:1px solid var(--line-2); border-radius:100px; padding:7px 14px}
+.chip b{color:var(--accent); font-weight:700}
+
+/* S3 stats */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line);
+       border-radius:16px; overflow:hidden; background:var(--bg-1); box-shadow:var(--shadow)}
+.stat{padding:30px 26px; border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .n{font-size:clamp(1.9rem,3vw,2.6rem); font-weight:800; letter-spacing:-.02em;
+         font-variant-numeric:tabular-nums; line-height:1.1}
+.stat .n.warn{color:var(--warn)} .stat .n.risk{color:var(--risk)}
+.stat .l{font-family:var(--mono); font-size:13px; letter-spacing:.12em;
+         text-transform:uppercase; color:var(--ink-mute); margin-top:10px}
+.stat .d{color:var(--ink-dim); font-size:.92rem; margin-top:8px; line-height:1.45}
+@media(max-width:900px){ .stats{grid-template-columns:1fr 1fr} .stat{border-bottom:1px solid var(--line)} }
+@media(max-width:520px){ .stats{grid-template-columns:1fr} }
+
+/* S11 frame */
+.frame{border:1px solid var(--line-2); border-radius:14px; overflow:hidden;
+       background:var(--bg-1); box-shadow:var(--shadow); margin-top:44px}
+.fbar{display:flex; align-items:center; gap:8px; padding:11px 16px;
+      border-bottom:1px solid var(--line); background:var(--bg-2)}
+.fbar i{width:10px; height:10px; border-radius:50%; background:var(--line-2); font-style:normal}
+.fbar .furl{font-family:var(--mono); font-size:12.5px; color:var(--ink-mute); margin-left:10px;
+            overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.frame img{display:block; width:100%; height:auto}
+.mapnotes{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:26px}
+.mnote{background:var(--bg-1); border:1px solid var(--line); border-radius:12px; padding:18px 20px}
+.mnote .mono{font-family:var(--mono); font-size:12.5px; letter-spacing:.1em;
+             text-transform:uppercase; color:var(--accent); display:block; margin-bottom:8px}
+.mnote p{margin:0; color:var(--ink-dim); font-size:.95rem; line-height:1.5}
+@media(max-width:820px){ .mapnotes{grid-template-columns:1fr} }
+
+/* S9 diagram */
+.archscroll{overflow-x:auto; margin-top:44px; border:1px solid var(--line); border-radius:16px;
+            background:var(--bg-1); box-shadow:var(--shadow)}
+.flowsvg{display:block; min-width:980px; width:100%; height:auto}
+.dlegend{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:22px}
+.dlegend span{font-family:var(--mono); font-size:13px; color:var(--ink-dim)}
+.dlegend b{color:var(--accent); font-weight:700}
+
+/* S4 prose + pull, sensitivity table */
+.prose{max-width:70ch; color:var(--ink); font-size:1.05rem}
+.prose p{margin:0 0 20px}
+.pull{border-left:4px solid var(--accent); padding:8px 0 8px 26px; margin:34px 0;
+      font-size:clamp(1.25rem,2vw,1.6rem); line-height:1.4; font-weight:600; max-width:62ch}
+.senstab{width:100%; border-collapse:collapse; margin-top:38px; background:var(--bg-1);
+         border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-sm)}
+.senstab th{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+            color:var(--ink-mute); text-align:left; padding:14px 20px; border-bottom:1px solid var(--line-2)}
+.senstab td{padding:16px 20px; border-bottom:1px solid var(--line); color:var(--ink-dim);
+            font-size:.98rem; vertical-align:top}
+.senstab tr:last-child td{border-bottom:none}
+.senstab .to{font-family:var(--mono); font-weight:700; white-space:nowrap}
+.to.red{color:var(--risk)} .to.yellow{color:var(--warn)}
+/* S8 callout */
+.callout{margin-top:44px; border:1px solid color-mix(in srgb, var(--warn) 40%, transparent);
+         background:linear-gradient(135deg, color-mix(in srgb, var(--warn) 10%, transparent), transparent 60%);
+         border-radius:16px; padding:30px 34px; box-shadow:var(--shadow-sm)}
+.callout .badge{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em;
+                text-transform:uppercase; color:var(--warn); display:block; margin-bottom:12px}
+.callout p{margin:0; font-size:clamp(1.05rem,1.6vw,1.3rem); line-height:1.5; max-width:75ch}
+
+/* S5 cards */
+.steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;
+       margin-top:44px; counter-reset:step}
+.step{background:var(--bg-1); border:1px solid var(--line); border-radius:14px;
+      padding:26px 24px; position:relative}
+.step::before{counter-increment:step; content:counter(step,decimal-leading-zero);
+              font-family:var(--mono); font-size:13px; color:var(--accent); font-weight:700;
+              display:block; margin-bottom:14px}
+.step h3{margin:0 0 10px}
+.step p{margin:0; color:var(--ink-dim); font-size:.95rem; line-height:1.55}
+.step .cmd{display:inline-block; font-family:var(--mono); font-size:12.5px; color:var(--ink);
+           background:var(--bg-2); border:1px solid var(--line-2); border-radius:7px;
+           padding:4px 10px; margin-top:14px}
+.step .price{position:absolute; top:24px; right:24px; font-family:var(--mono); font-size:13.5px;
+             color:var(--ink); font-weight:700}
+.step .gap{color:var(--risk); font-family:var(--mono); font-size:12.5px; letter-spacing:.06em;
+           display:block; margin-top:12px}
+.recap{grid-column:1/-1; background:linear-gradient(135deg, var(--accent-soft), transparent 65%);
+       border:1px solid var(--accent-dim); border-radius:14px; padding:26px 28px}
+.recap p{margin:0; font-size:1.08rem; line-height:1.55; max-width:80ch}
+
+/* S7 timeline */
+.rail{margin-top:56px; position:relative}
+.railline{position:absolute; left:0; right:0; top:9px; height:2px; background:var(--line-2)}
+.stops{display:grid; grid-template-columns:repeat(5,1fr); gap:18px; position:relative}
+.stop .dot{width:20px; height:20px; border-radius:50%; border:2px solid var(--line-2);
+           background:var(--bg); position:relative; z-index:1}
+.stop.done .dot{background:var(--ok); border-color:var(--ok)}
+.stop.active .dot{background:var(--warn); border-color:var(--warn);
+                  box-shadow:0 0 0 6px color-mix(in srgb, var(--warn) 18%, transparent)}
+.stop.hollow .dot{border-style:dashed}
+.stop .sm{font-family:var(--mono); font-size:12.5px; letter-spacing:.1em; text-transform:uppercase;
+          color:var(--ink-mute); margin:16px 0 6px}
+.stop.active .sm{color:var(--warn)}
+.stop h3{margin:0 0 8px; font-size:1.08rem}
+.stop p{margin:0; color:var(--ink-dim); font-size:.9rem; line-height:1.5}
+.stop .cnt{font-family:var(--mono); font-size:12.5px; margin-top:10px; display:block; color:var(--ink-mute)}
+.stop.active .cnt{color:var(--warn)}
+@media(max-width:900px){
+  .railline{display:none}
+  .stops{grid-template-columns:1fr}
+  .stop{display:grid; grid-template-columns:20px 1fr; gap:0 18px}
+  .stop .dot{grid-row:1/5; margin-top:4px}
+}
+
+/* S13 paths */
+.paths{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:44px}
+.path{background:var(--bg-1); border:1px solid var(--line); border-radius:16px; padding:30px 28px}
+.path .pl{font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase;
+          color:var(--accent); display:block; margin-bottom:12px}
+.path h3{margin:0 0 10px}
+.path p{margin:0 0 22px; color:var(--ink-dim); font-size:.97rem; line-height:1.55}
+.btn{display:inline-block; font-family:var(--mono); font-size:13.5px; letter-spacing:.04em;
+     text-decoration:none; border-radius:10px; padding:12px 20px}
+.btn.pri{background:var(--ink); color:var(--bg); font-weight:700}
+.btn.sec{border:1px solid var(--line-2); color:var(--ink)}
+@media(max-width:820px){ .paths{grid-template-columns:1fr} }
+
+/* compact reporting overrides */
+section{padding:58px 0}
+#hero{min-height:0}
+#hero .wrap{padding-top:72px; padding-bottom:58px}
+h1{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+h2{font-size:clamp(1.35rem,2.3vw,1.8rem)}
+.lede{font-size:1.02rem; margin:12px 0 0; max-width:78ch}
+.eyebrow{margin:0 0 12px; font-size:13px}
+.tag{margin-bottom:18px; font-size:12.5px; padding:6px 12px}
+.stat{padding:20px 22px}
+.stat .n{font-size:clamp(1.5rem,2.2vw,1.9rem)}
+.frame,.archscroll,.rail,.paths{margin-top:26px}
+.steps{margin-top:26px; gap:12px}
+.step{padding:20px 20px}
+.senstab{margin-top:26px}
+.pull{font-size:1.12rem; margin:22px 0; padding-left:20px}
+.callout{margin-top:26px; padding:20px 24px}
+.callout p{font-size:1.02rem}
+.mapnotes{margin-top:14px}
+.recap p{font-size:1rem}
+.prose{font-size:.99rem}
+.path{padding:22px 24px}
+.path p{margin-bottom:16px}
+/* folded plan checklists */
+.donow{margin-top:26px; background:var(--bg-1); border:1px solid color-mix(in srgb, var(--warn) 38%, transparent);
+       border-radius:14px; padding:22px 26px}
+.donow .dhead{font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase;
+              color:var(--warn); margin:0 0 14px}
+.donow ol{margin:0; padding-left:20px; columns:2; column-gap:40px; font-size:.95rem; color:var(--ink-dim)}
+.donow li{margin-bottom:9px; break-inside:avoid}
+.donow li b{color:var(--ink); font-weight:600}
+@media(max-width:820px){ .donow ol{columns:1} }
+.plangrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; margin-top:26px}
+.plancol{background:var(--bg-1); border:1px solid var(--line); border-radius:12px; padding:18px 20px}
+.plancol h3{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+            color:var(--accent); margin:0 0 12px; font-weight:700}
+.plancol h3 span{color:var(--ink-mute); float:right; letter-spacing:.04em}
+.plancol ul{list-style:none; margin:0; padding:0}
+.plancol li{display:flex; justify-content:space-between; gap:14px; padding:6px 0;
+            border-bottom:1px solid var(--line); font-size:.9rem; color:var(--ink-dim); line-height:1.4}
+.plancol li:last-child{border-bottom:none}
+.plancol li .pr{font-family:var(--mono); font-size:12.5px; color:var(--ink); white-space:nowrap}
+.plancol li .pr.zero{color:var(--ok)}
+@media print{
+  :root{ --bg:#FFFFFF; --bg-1:#FFFFFF; --bg-2:#F4F2EE;
+    --line:#D8D4CD; --line-2:#C4BFB6;
+    --ink:#1A1A1E; --ink-dim:#444652; --ink-mute:#7A7C88;
+    --accent-soft:rgba(184,80,80,.06); --shadow:none; --shadow-sm:none }
+  #bar, nav, .no-print{display:none !important}
+  section{padding:34px 0; border-bottom:1px solid var(--line); break-inside:auto}
+  #hero{min-height:0; padding:30px 0}
+  .reveal{opacity:1 !important; transform:none !important; transition:none !important}
+  .step,.stat,.path,.frame,.mnote,.stop{break-inside:avoid}
+  h2{break-after:avoid}
+  .archscroll{overflow:visible}
+  canvas{max-height:340px}
+  .tag,.callout .badge{color:#9A7415}
+  .stat .n.warn{color:#9A7415} .to.yellow{color:#9A7415}
+  a[href^="http"]::after{content:" (" attr(href) ")"; font-family:var(--mono);
+    font-size:10px; color:var(--ink-mute)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important; transition:none !important} html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<nav>
+  <div class="wrap">
+    <span class="brand">fire <b>watch</b></span>
+    <div class="nlinks">
+      <a href="#status">Status</a><a href="#map">Map</a><a href="#engine">Pipeline</a>
+      <a href="#verdict">Verdict</a><a href="#analysis">Analysis</a>
+      <a href="#stages">Stages</a><a href="#plan">Plan</a><a href="#act">Actions</a>
+    </div>
+  </div>
+</nav>
+
+<header id="hero">
+  <canvas id="embers"></canvas>
+  <div class="scrim"></div>
+  <div class="wrap">
+    <p class="stamp"><b>REPORT</b> · 2026-07-29 · 11:16 UTC (12:16 Lisbon) · assessment run 2026-07-29T111629Z</p>
+    <span class="tag"><i></i>Orange — watch &amp; prepare</span>
+    <h1>Fire risk briefing — Rio de Mouro: <em class="hl">evidence, verdict, readiness plan.</em></h1>
+    <p class="lede">R. José Leitão de Barros, Rio de Mouro, Sintra · 2026-07-29 11:16 UTC.
+       Automated assessment: five live sources checked every 30 minutes, scored
+       deterministically, evidence stored per run. Alerts fire on change only,
+       via Telegram.</p>
+  </div>
+</header>
+
+<section id="status">
+  <div class="wrap">
+    <p class="eyebrow reveal">01 · <b>Status</b></p>
+    <h2 class="reveal">Status at 11:16 UTC</h2>
+    <p class="lede reveal d1">All figures from the committed evidence bundle; checkable against raw source payloads.</p>
+    <div class="stats reveal d2">
+      <div class="stat"><div class="n warn">ORANGE</div><div class="l">Alert level · home</div>
+        <div class="d">Composite 3.62 / 5 — prepare posture, not evacuation</div></div>
+      <div class="stat"><div class="n"><span class="count" data-to="44">0</span> km</div><div class="l">Upwind incident</div>
+        <div class="d">Torres Vedras, first-alert dispatch · wind alignment 0.70</div></div>
+      <div class="stat"><div class="n"><span class="count" data-to="10.5" data-suffix="%">0</span></div><div class="l">National saturation</div>
+        <div class="d">1,040 of 15,064 seasonal personnel deployed — system unstressed</div></div>
+      <div class="stat"><div class="n risk">0/49</div><div class="l">Preparedness done</div>
+        <div class="d">~€850 kit outstanding · last drill: never</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="map">
+  <div class="wrap">
+    <p class="eyebrow reveal">02 · <b>Threat geometry</b></p>
+    <h2 class="reveal">Threat map — home, 60 km radius</h2>
+    <p class="lede reveal d1">Rendered from the same derived data as the verdict.
+       NASA's own rendered imagery is stored in the bundle as an independent cross-check.</p>
+    <div class="frame reveal d2">
+      <div class="fbar"><i></i><i></i><i></i>
+        <span class="furl">fire-watch · evidence/2026-07-29T111629Z/maps/home.png</span></div>
+      <img src="/example-report/assets/threat-map-home.png" alt="Threat geometry map: property, range rings, incidents, hotspots, wind arrow" width="1100" height="1100">
+    </div>
+    <div class="mapnotes">
+      <div class="mnote reveal"><span class="mono">The triangle that matters</span>
+        <p>Torres Vedras incident, 44 km NNW — inside the 60 km ring and sitting where
+           the wind comes from. Geometry, not distance, drives the level.</p></div>
+      <div class="mnote reveal d1"><span class="mono">The circles that don't</span>
+        <p>Four satellite hotspots in radius: the Setúbal-corridor pair is industrial
+           heat signature; the 5.95&nbsp;MW detection is a day old and downwind.
+           Marked, scrutinized, dismissed.</p></div>
+      <div class="mnote reveal d2"><span class="mono">The arrow over everything</span>
+        <p>NNW at ~10 km/h. Fire spreads downwind — an incident 44 km upwind outranks
+           one 20 km downwind. The whole page hangs on that arrow.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="engine">
+  <div class="wrap">
+    <p class="eyebrow reveal">03 · <b>Pipeline</b></p>
+    <h2 class="reveal">Assessment pipeline</h2>
+    <p class="lede reveal d1">Deterministic engine fetches and scores (~3 s; same inputs,
+       same verdict). The model layer interprets; disagreement is labeled, never
+       silently applied.</p>
+    <div class="archscroll reveal d2">
+    <svg class="flowsvg" viewBox="0 0 1160 400" role="img" aria-label="Fire watch pipeline: five sources feed the engine, which writes evidence read by the analyst, producing reports and alerts">
+      <style>
+        .bx{fill:#1A1A21; stroke:#34343C; rx:10}
+        .bxa{fill:#1A1A21; stroke:#B85050; stroke-width:2}
+        .lbl{font:600 14px 'DM Sans',sans-serif; fill:#FFFFFF}
+        .sub{font:12px 'JetBrains Mono',monospace; fill:#9DA2BC}
+        .mut{font:11.5px 'JetBrains Mono',monospace; fill:#6B6E80}
+        .edge{stroke:#34343C; stroke-width:2; fill:none}
+        .edgea{stroke:#B85050; stroke-width:2; fill:none}
+      </style>
+      <!-- sources -->
+      <text x="20" y="34" class="mut">SOURCES · LIVE</text>
+      <g>
+        <rect class="bx" x="20" y="48"  width="200" height="52" rx="10"/><text x="36" y="72" class="lbl">NASA FIRMS</text><text x="36" y="90" class="sub">hotspots · 375 m</text>
+        <rect class="bx" x="20" y="112" width="200" height="52" rx="10"/><text x="36" y="136" class="lbl">fogos.pt / ANEPC</text><text x="36" y="154" class="sub">incidents + resources</text>
+        <rect class="bx" x="20" y="176" width="200" height="52" rx="10"/><text x="36" y="200" class="lbl">IPMA RCM</text><text x="36" y="218" class="sub">municipal danger 1-5</text>
+        <rect class="bx" x="20" y="240" width="200" height="52" rx="10"/><text x="36" y="264" class="lbl">Open-Meteo</text><text x="36" y="282" class="sub">wind · RH · rain 48 h</text>
+        <rect class="bx" x="20" y="304" width="200" height="52" rx="10"/><text x="36" y="328" class="lbl">FIRMS WMS</text><text x="36" y="346" class="sub">NASA-rendered imagery</text>
+      </g>
+      <path class="edge" d="M220 74 h60 v128 h34"/>
+      <path class="edge" d="M220 138 h74 v64 h20"/>
+      <path class="edge" d="M220 202 h94"/>
+      <path class="edge" d="M220 266 h74 v-64 h20"/>
+      <path class="edge" d="M220 330 h60 v-128 h34"/>
+      <!-- engine -->
+      <rect class="bxa" x="314" y="152" width="240" height="104" rx="12"/>
+      <text x="334" y="184" class="lbl">Engine · deterministic</text>
+      <text x="334" y="206" class="sub">fetch → score → diff · ~3 s</text>
+      <text x="334" y="226" class="sub">D1-D5 · overrides · triggers</text>
+      <text x="334" y="246" class="mut">collect_evidence.py</text>
+      <path class="edgea" d="M554 204 h64"/>
+      <!-- evidence -->
+      <rect class="bx" x="618" y="140" width="212" height="128" rx="12"/>
+      <text x="636" y="172" class="lbl">Evidence bundle</text>
+      <text x="636" y="194" class="sub">raw + derived.json</text>
+      <text x="636" y="214" class="sub">threat maps · sensitivity</text>
+      <text x="636" y="234" class="sub">H×E×S decomposition</text>
+      <text x="636" y="254" class="mut">append-only · auditable</text>
+      <path class="edgea" d="M830 204 h64"/>
+      <!-- analyst -->
+      <rect class="bxa" x="894" y="152" width="246" height="104" rx="12"/>
+      <text x="912" y="184" class="lbl">Analyst · model layer</text>
+      <text x="912" y="206" class="sub">interpret geometry · narrate</text>
+      <text x="912" y="226" class="sub">dissent labeled, never silent</text>
+      <text x="912" y="246" class="mut">assess-risk · monitor</text>
+      <!-- outputs -->
+      <path class="edge" d="M1017 256 v34"/>
+      <rect class="bx" x="860" y="290" width="132" height="66" rx="10"/>
+      <text x="876" y="316" class="lbl" style="font-size:13px">Reports</text>
+      <text x="876" y="336" class="sub">repo + Trinity</text>
+      <rect class="bxa" x="1004" y="290" width="136" height="66" rx="10"/>
+      <text x="1020" y="316" class="lbl" style="font-size:13px">Telegram</text>
+      <text x="1020" y="336" class="sub">via Corbin</text>
+      <path class="edge" d="M960 256 v20 h-34 v14"/>
+    </svg>
+    </div>
+    <div class="dlegend reveal">
+      <span><b>D1</b> active fire · 50%</span>
+      <span><b>D2</b> fire weather · 25%</span>
+      <span><b>D3+D4</b> fuel + vulnerability · 25%</span>
+      <span><b>D5</b> escape routes · modifier</span>
+      <span><b>every 30 min</b> · silent unless something changes</span>
+    </div>
+  </div>
+</section>
+
+<section id="verdict">
+  <div class="wrap">
+    <p class="eyebrow reveal">04 · <b>Verdict</b></p>
+    <h2 class="reveal">Verdict and falsification conditions</h2>
+    <div class="prose reveal d1" style="margin-top:30px">
+      <p>Nothing is burning within 60 km. The level is ORANGE anyway, because a
+         first-alert incident sits <span class="k">almost directly upwind</span> at 44 km
+         with 24 firefighters and aerial means already committed — and because the
+         property's own posture (unknown structure, zero cleared vegetation) leaves
+         little margin if the picture worsens.</p>
+    </div>
+    <div class="pull reveal d2">ORANGE is not about distance. It's about geometry:
+      the incident sits where the wind comes from.</div>
+    <table class="senstab reveal d2">
+      <thead><tr><th>Single change</th><th>Verdict flips to</th></tr></thead>
+      <tbody>
+        <tr><td>A burning incident appears within 20 km</td><td class="to red">RED — leave</td></tr>
+        <tr><td>All detections clear and municipal danger drops to 2</td><td class="to yellow">YELLOW — watch</td></tr>
+      </tbody>
+    </table>
+    <p class="reveal" style="color:var(--ink-mute); font-family:var(--mono); font-size:13px; margin-top:14px">
+      Computed by the engine, not asserted by the narrative — the verdict states its own falsification conditions.</p>
+    <div class="callout reveal">
+      <span class="badge">Watch condition · active</span>
+      <p>If the Torres Vedras incident advances from first-alert to
+         <span class="k">active burning</span> and the wind holds NNW, the next alert is
+         <span class="k">RED</span> — detected within 30 minutes, delivered by Telegram.</p>
+    </div>
+  </div>
+</section>
+
+<section id="analysis">
+  <div class="wrap">
+    <p class="eyebrow reveal">05 · <b>Decomposition</b></p>
+    <h2 class="reveal">Risk decomposition: Hazard × Exposure × Susceptibility</h2>
+    <p class="lede reveal d1">Each factor sourced; known gaps stated.</p>
+    <div class="steps">
+      <div class="step reveal"><h3>Hazard</h3>
+        <p>Municipal danger 3/5 (Elevado) sustained across the 3-day horizon · 8 incidents
+           within 150 km, none burning · 4 hotspots in radius, max 5.95 MW · no red-flag
+           weather in 24 h.</p>
+        <span class="gap">gap: historical base rate unavailable — anchored to RCM only</span></div>
+      <div class="step reveal d1"><h3>Exposure</h3>
+        <p>Urban-wildland interface: yes · fuel score 3/5 for the Rio de Mouro suburban
+           fringe · 60 km watch radius · Serra de Sintra fuel mass 5 km west.</p></div>
+      <div class="step reveal d2"><h3>Susceptibility</h3>
+        <p>Structure type unknown · 0 m defensible space recorded · 2 egress routes
+           (A16-Cascais, IC19/A9-east) — both clear under current wind.</p>
+        <span class="gap">gap: heuristic until the 10-item checklist is walked</span></div>
+      <div class="recap reveal d2">
+        <p><span class="k">Top register scenario:</span> Torres Vedras escalates to active
+           burning under held NNW wind — likelihood low-medium; treatment in place: 24
+           firefighters + aerial on site, 30-minute automated monitoring with pre-armed
+           RED trigger; re-evaluate on any status or wind change.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="stages">
+  <div class="wrap">
+    <p class="eyebrow reveal">06 · <b>Readiness</b></p>
+    <h2 class="reveal">Readiness stages</h2>
+    <p class="lede reveal d1">Operating rule: everything is acquired one stage before it
+       is needed. Stages 0-1 are calendar-driven; 2-3 are alert-driven; R is post-event.</p>
+    <div class="rail reveal d2">
+      <div class="railline"></div>
+      <div class="stops">
+        <div class="stop hollow"><div class="dot"></div><div class="sm">Stage 0 · any calm day</div>
+          <h3>Capable</h3><p>Own the gear, pre-make the decisions: go-bags, documents,
+          home defense kit, family plan, both routes driven.</p><span class="cnt">0 / 23 done</span></div>
+        <div class="stop hollow"><div class="dot"></div><div class="sm">Stage 1 · by June 1</div>
+          <h3>Seasonal</h3><p>Legal fuel strip, roof valleys, refresh, half-tank rule,
+          one real drill.</p><span class="cnt">0 / 8 — overdue</span></div>
+        <div class="stop active"><div class="dot"></div><div class="sm">Stage 2 · at orange</div>
+          <h3>Staged</h3><p>The 30-45 min sequence: bags to car, house buttoned up,
+          masks reachable, family synced.</p><span class="cnt">active now · 0 / 8</span></div>
+        <div class="stop hollow"><div class="dot"></div><div class="sm">Stage 3 · at red</div>
+          <h3>Go</h3><p>Execute the pre-made decision on the wind-aware route. Nothing is
+          decided at RED — only done. Official orders override everything.</p></div>
+        <div class="stop hollow"><div class="dot"></div><div class="sm">Stage R · after</div>
+          <h3>Recover</h3><p>Re-entry safety, photograph before touching, claims,
+          restock in 7 days, after-action back into the plan.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="wrap">
+    <p class="eyebrow reveal">07 · <b>Plan</b></p>
+    <h2 class="reveal">The plan — staging sequence and checklists</h2>
+    <p class="lede reveal d1">Full plan as tracked in the preparedness ledger (0/49
+       complete). Stage 2 applies now; Stage 0-1 items listed with cost —
+       ~€850 outstanding, highest leverage first.</p>
+    <div class="donow reveal d1">
+      <p class="dhead">Stage 2 · Do now while ORANGE holds · 30-45 min, in order</p>
+      <ol>
+        <li><b>Bags + documents to car;</b> fueled, parked nose-out, not in garage</li>
+        <li><b>Combustibles off terrace;</b> gas bottle ≥1 m from outer wall</li>
+        <li><b>Windows + shutters closed,</b> curtains open (radiant heat ignites them)</li>
+        <li><b>Hose connected;</b> buckets and bath filled; soak 0-10 m zone if time allows</li>
+        <li><b>Masks + goggles into the car cabin,</b> not packed at the bottom</li>
+        <li><b>Family sync:</b> rally point Cascais seafront, backup Lisbon; phones charging</li>
+        <li><b>Pets:</b> carriers staged, leads by the door</li>
+        <li><b>Overnight ORANGE:</b> cotton layer + shoes beside the bed</li>
+      </ol>
+    </div>
+    <div class="plangrid">
+      <div class="plancol reveal">
+        <h3>Go-bag · per adult <span>stage 0</span></h3>
+        <ul>
+          <li>Documents: paper + encrypted USB + cloud<span class="pr">€10</span></li>
+          <li>FFP3 masks ×4 + goggles<span class="pr">€35</span></li>
+          <li>Headlamps ×2 + batteries<span class="pr">€30</span></li>
+          <li>Power bank 20k mAh<span class="pr">€40</span></li>
+          <li>Battery/crank FM radio<span class="pr">€25</span></li>
+          <li>First aid + 1-week meds, rotated<span class="pr">€40</span></li>
+          <li>Water 6 L/person + energy bars<span class="pr">€15</span></li>
+          <li>Gloves, cotton layer, sturdy shoes<span class="pr">€40</span></li>
+          <li>Cash, small notes (held, not spent)<span class="pr">€200-300</span></li>
+          <li>Spare keys + numbers on paper<span class="pr zero">€0</span></li>
+        </ul>
+      </div>
+      <div class="plancol reveal d1">
+        <h3>Home defense <span>stage 0</span></h3>
+        <ul>
+          <li>Extinguishers 6 kg ABC ×2<span class="pr">€80</span></li>
+          <li>Fire blankets ×2<span class="pr">€30</span></li>
+          <li>Perimeter hose + spray nozzle<span class="pr">€75</span></li>
+          <li>Ember vent mesh &lt;3 mm — priority fix<span class="pr">€60</span></li>
+          <li>Metal gutter guards<span class="pr">€90</span></li>
+          <li>Roof ladder + staged hand tools<span class="pr">€100</span></li>
+          <li>Router UPS (alerts survive brownouts)<span class="pr">€60</span></li>
+          <li>IBC water tank 1000 L — if space<span class="pr">€200</span></li>
+        </ul>
+      </div>
+      <div class="plancol reveal d2">
+        <h3>Decisions + seasonal <span>stage 0-1</span></h3>
+        <ul>
+          <li>Family plan on paper: rally, contact, roles<span class="pr zero">€0</span></li>
+          <li>Both routes driven, day and night<span class="pr zero">€0</span></li>
+          <li>Cut-offs known by every adult<span class="pr zero">€0</span></li>
+          <li>Neighbor pact + phone alert setup<span class="pr zero">€0</span></li>
+          <li>Legal fuel strip verified (by Apr 30)<span class="pr">seasonal</span></li>
+          <li>Roof valleys + gutters cleaned<span class="pr">seasonal</span></li>
+          <li>Go-bag refresh + tank filled + gauges<span class="pr">seasonal</span></li>
+          <li>Half-tank rule + one full drill<span class="pr">seasonal</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="act">
+  <div class="wrap">
+    <p class="eyebrow reveal">08 · <b>Actions</b></p>
+    <h2 class="reveal">Actions</h2>
+    <div class="paths">
+      <div class="path reveal d1">
+        <span class="pl">Tonight · while orange holds</span>
+        <h3>Sequence items 1, 5, 6 — ~10 min, no purchases required</h3>
+        <p>Documents and essentials to the car; masks-equivalent reachable in the cabin;
+           family synced on the rally point.</p>
+        <a class="btn pri" href="https://github.com/Abilityai/fire-watch/blob/main/preparedness/home-plan.md">Full plan (repo)</a>
+      </div>
+      <div class="path reveal d2">
+        <span class="pl">Within 48 h of downgrade</span>
+        <h3>Stage 0 procurement + decisions</h3>
+        <p>Order: family plan (€0) → document set (€10) → vent mesh (€60) → remainder
+           per checklist. Log completed items with <span class="k">/preparedness log</span>;
+           alerts stop flagging what's done.</p>
+        <a class="btn sec" href="https://github.com/Abilityai/fire-watch/tree/main/preparedness">Ledger (repo)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="fmono">fire-watch · Abilityai</span>
+    <span class="fmono">data 2026-07-29 11:16 UTC · bundle 2026-07-29T111629Z · built with /microsite</span>
+  </div>
+</footer>
+
+<script>
+// 1. scroll progress bar
+var bar=document.getElementById('bar');
+function prog(){var h=document.documentElement,sc=h.scrollTop||document.body.scrollTop,
+  max=(h.scrollHeight-h.clientHeight)||1;bar.style.width=(sc/max*100)+'%';}
+document.addEventListener('scroll',prog,{passive:true}); prog();
+
+// 2. nav scrollspy
+var links=[].slice.call(document.querySelectorAll('.nlinks a')), map={};
+links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+var spy=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){links.forEach(function(l){l.classList.remove('active');});
+    var m=map[e.target.id]; if(m)m.classList.add('active');}});},
+  {rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id], header#hero').forEach(function(s){spy.observe(s);});
+
+// 3. reveal on scroll
+var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){e.target.classList.add('in'); rio.unobserve(e.target);}});},
+  {threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){rio.observe(el);});
+
+// 4. count-up numbers
+function countup(el){var to=parseFloat(el.dataset.to), suf=el.dataset.suffix||'',
+  dec=(el.dataset.to.split('.')[1]||'').length, t0=null;
+  function step(ts){if(!t0)t0=ts; var p=Math.min((ts-t0)/900,1), e=1-Math.pow(1-p,3);
+    el.textContent=(to*e).toFixed(dec)+suf; if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);}
+var cio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){countup(e.target); cio.unobserve(e.target);}});},{threshold:.6});
+document.querySelectorAll('.count').forEach(function(el){cio.observe(el);});
+
+// 5. ember canvas - drift matches today's wind: from NNW (338°) toward SSE.
+(function(){
+  var cv=document.getElementById('embers'); if(!cv) return;
+  var ctx=cv.getContext('2d'), DPR=Math.min(window.devicePixelRatio||1,2), W,H,parts=[],raf=null;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){W=cv.clientWidth; H=cv.clientHeight;
+    cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);}
+  function mk(seed){var deep=Math.random();
+    return {x:Math.random()*W, y:seed?Math.random()*H:-8,
+      r:.7+Math.random()*1.9*(1-deep*.5),
+      vx:.12+Math.random()*.22,            /* slight east */
+      vy:.35+Math.random()*.6,             /* mostly south */
+      a:.12+Math.random()*.4, ph:Math.random()*6.28,
+      warm:Math.random()<.72};}
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<parts.length;i++){var p=parts[i];
+      var fl=.72+.28*Math.sin(t/640+p.ph);
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.28);
+      ctx.fillStyle=(p.warm?'rgba(184,80,80,':'rgba(240,193,75,')+(p.a*fl)+')';
+      ctx.fill();
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.y>H+10||p.x>W+10){parts[i]=mk(false);}}
+  }
+  function loop(t){draw(t); raf=requestAnimationFrame(loop);}
+  function init(){size(); parts=[];
+    var n=Math.min(90,Math.floor(W*H/16000));
+    for(var i=0;i<n;i++)parts.push(mk(true));
+    if(reduced){draw(1200); return;}
+    if(raf)cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(loop);}
+  var deb; window.addEventListener('resize',function(){clearTimeout(deb);deb=setTimeout(init,180);});
+  var vio=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(reduced)return;
+    if(e.isIntersecting){if(!raf)raf=requestAnimationFrame(loop);}
+    else if(raf){cancelAnimationFrame(raf);raf=null;}});});
+  vio.observe(cv);
+  init();
+})();
+</script>
+</body></html>

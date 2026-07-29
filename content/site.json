@@ -1,0 +1,24 @@
+{
+  "name": "Fire Watch",
+  "tagline": "Wildfire risk briefings for homes in Portugal",
+  "description": "An autonomous fire analyst that reads satellites, official incident feeds, and fire weather — and tells you in one color whether your home is threatened, and what to do next.",
+  "url": "https://fire-watch-site.vercel.app",
+  "nav": [
+    { "label": "The report", "href": "#report" },
+    { "label": "Data", "href": "#data" },
+    { "label": "Method", "href": "#method" },
+    { "label": "Request", "href": "#request" }
+  ],
+  "contact": {
+    "telegram": {
+      "handle": "@FireWatchBriefings",
+      "url": "",
+      "note": "Access is personal and approved by the operator before any report runs."
+    }
+  },
+  "footer": {
+    "disclaimer": "Fire Watch is informational tooling, not an emergency service. Official ANEPC / Civil Protection orders always override anything in a briefing. In an emergency, call 112.",
+    "attribution": "Data: IPMA · NASA FIRMS · fogos.pt · EFFIS · MeteoAlarm",
+    "copyright": "Fire Watch — an autonomous wildfire risk agent"
+  }
+}

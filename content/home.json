@@ -1,0 +1,153 @@
+{
+  "hero": {
+    "eyebrow": "Wildfire risk · Portugal",
+    "headline": "When fire is on the news, know what it means for your home.",
+    "lede": "Fire Watch is an autonomous fire analyst. It reads the satellites, the official incident feeds, and the fire weather — then answers the only question that matters: is this a threat to your address, and what should you do next?",
+    "primaryCta": { "label": "Request a briefing", "href": "#request" },
+    "secondaryCta": { "label": "See a real report", "href": "/example-report" },
+    "verdicts": [
+      { "level": "Green", "meaning": "No elevated threat" },
+      { "level": "Yellow", "meaning": "Stay aware" },
+      { "level": "Orange", "meaning": "Prepare" },
+      { "level": "Red", "meaning": "Act now" }
+    ],
+    "verdictNote": "Every briefing leads with one of four verdicts — and the single driver behind it. Traffic lights, not decimal probabilities."
+  },
+  "report": {
+    "eyebrow": "What you get",
+    "title": "One report. Verdict first.",
+    "lede": "A briefing built for the anxious person at 11pm who just saw fire coverage on the news — the verdict comes first, the reasoning second, and nothing pretends to more precision than the data supports.",
+    "deliverables": [
+      {
+        "title": "The verdict and its driver",
+        "text": "Green, Yellow, Orange, or Red — with the single factor that put it there, in plain language."
+      },
+      {
+        "title": "Threat map and geometry",
+        "text": "Every relevant fire plotted against your address, with distance and wind alignment — because the threat is where fire will be, not where it is."
+      },
+      {
+        "title": "Five-dimension risk scores",
+        "text": "Active-fire threat, fire weather, fuel load, property vulnerability, and escape routes — each scored 1–5, honestly, gaps included."
+      },
+      {
+        "title": "Actions and triggers",
+        "text": "At most three actions sized to the level, plus the explicit conditions that would escalate or downgrade the verdict."
+      }
+    ],
+    "delivery": "Delivered as a PDF and your own report web page. Every figure traces back to a stored evidence bundle — the report tells you which one.",
+    "example": {
+      "label": "Read the example briefing",
+      "href": "/example-report",
+      "note": "A real report for the operator's own home near Lisbon, generated 29 July 2026."
+    }
+  },
+  "data": {
+    "eyebrow": "Where the data comes from",
+    "title": "Official feeds, satellites, and fire weather — fetched once, stored auditable.",
+    "lede": "One national data sweep feeds every assessment. Nothing is hand-picked, and every number in your report can be checked against the evidence bundle recorded at run time.",
+    "sources": [
+      {
+        "key": "danger",
+        "name": "IPMA RCM",
+        "role": "Official municipal fire danger",
+        "detail": "Portugal's official fire-danger index for your municipality, on a 1–5 scale, refreshed hourly by the national weather institute."
+      },
+      {
+        "key": "satellite",
+        "name": "NASA FIRMS",
+        "role": "Satellite hotspot detection",
+        "detail": "VIIRS and MODIS thermal hotspots, confidence-filtered. Typically 1–4 hours behind reality — the report says so instead of hiding it."
+      },
+      {
+        "key": "incidents",
+        "name": "National incident feed",
+        "role": "Active fires + deployed resources",
+        "detail": "Every active wildfire in Portugal with crews, vehicles, and aircraft committed — which also powers the suppression-strain signal: how stretched the national response already is."
+      },
+      {
+        "key": "weather",
+        "name": "Fire weather",
+        "role": "Wind, humidity, temperature",
+        "detail": "High-resolution IPMA forecasts. Red-flag combinations — dry, hot, windy — elevate the risk score regardless of how far the nearest fire is."
+      },
+      {
+        "key": "effis",
+        "name": "EFFIS",
+        "role": "European fire-weather index",
+        "detail": "The EU's calibrated fire-weather scale, used as forecast context on top of the national danger rating."
+      },
+      {
+        "key": "alerts",
+        "name": "MeteoAlarm",
+        "role": "Official warnings",
+        "detail": "The official European channel for heat and wind warnings issued by national authorities."
+      }
+    ],
+    "note": "Detection latency, degraded sources, and data gaps are stated in the report, never papered over. If a layer is down, the briefing says which one and what that does to confidence."
+  },
+  "method": {
+    "eyebrow": "How it's analyzed",
+    "title": "A sensor and an analyst — separated on purpose.",
+    "lede": "Risk is scored by a deterministic engine, then interpreted by an analyst layer. The same inputs always produce the same verdict; judgment is added on top, never smuggled in.",
+    "engine": {
+      "title": "The engine senses and scores",
+      "points": [
+        "Fetches all sources and stores the raw evidence in an auditable bundle.",
+        "Scores five risk dimensions and combines them with fixed weights.",
+        "Applies hard override rules — a close, upwind fire forces the level up no matter what the average says."
+      ]
+    },
+    "analyst": {
+      "title": "The analyst interprets",
+      "points": [
+        "Reads the threat as a trajectory: where fire will be given wind, fuel, and slope — wind alignment before distance.",
+        "Writes the narrative and the actions in plain language, at the reader's level.",
+        "May disagree with the computed level — but only in a clearly labeled analyst note, never silently."
+      ]
+    },
+    "principles": [
+      {
+        "title": "Verdict first",
+        "text": "The color and its driver lead every output. Reasoning follows for those who want it."
+      },
+      {
+        "title": "No false precision",
+        "text": "Four levels, honest gaps, stated assumptions. Decimal probabilities don't help you decide whether to load the car."
+      },
+      {
+        "title": "Auditable",
+        "text": "A claim like “0 incidents within 60 km” is checkable against the evidence bundle recorded for that exact run."
+      }
+    ]
+  },
+  "flow": {
+    "eyebrow": "How to request one",
+    "title": "Message the agent. Answer a few questions. Get your briefing.",
+    "lede": "The whole exchange happens in a chat with the agent itself — there is no form on this page.",
+    "steps": [
+      {
+        "title": "Message the agent",
+        "text": "Reach out on Telegram. You'll be asked to verify who you are."
+      },
+      {
+        "title": "Get approved",
+        "text": "Access is personal: every requester is approved by the operator before any report runs."
+      },
+      {
+        "title": "Answer a few questions",
+        "text": "The agent asks for your address or coordinates in Portugal — and optionally your structure type, cleared distance around the house, and escape routes. Defaults are used and stated if you skip them."
+      },
+      {
+        "title": "Receive your briefing",
+        "text": "A plain-language summary in the chat, the PDF, and a link to your own report page. The report is a snapshot, valid as of its timestamp — you can request a refresh any time."
+      }
+    ],
+    "pilotNote": "Currently running as a free pilot, by approval."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Talk to the agent",
+    "text": "One channel, one capability: request a fire-risk briefing for an address in Portugal."
+  }
+}
